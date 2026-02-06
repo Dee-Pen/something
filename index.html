@@ -79,6 +79,13 @@ button{
 </div>
 
 <script>
+// ===== Simple password check =====
+const password = prompt("Enter the secret password to view your Valentine card ❤️");
+if(password !== "sujita2026"){ // <-- change this to your desired password
+    document.body.innerHTML = "<h1>❌ Wrong password!</h1><p>You cannot see the Valentine card.</p>";
+    throw "Access denied"; // stop further JS execution
+}
+
 // ===== Auto date for Feb
 const now = new Date();
 const valentine = new Date(now.getFullYear(), 1, 14); // Feb 14
