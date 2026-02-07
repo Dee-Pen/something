@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Valentine Week for Sujita ❤️</title>
+
 <style>
 body{
     margin:0;
@@ -27,11 +28,12 @@ h1{font-size:26px;margin-bottom:10px}
 img{
     width:180px;
     border-radius:15px;
-    cursor:pointer;
-    transition:0.3s;
 }
-img:hover{transform:scale(1.05);}
-#text{min-height:90px;margin-top:15px;font-size:17px}
+#text{
+    min-height:120px;
+    margin-top:15px;
+    font-size:17px;
+}
 button{
     padding:10px 25px;
     border:none;
@@ -42,7 +44,11 @@ button{
     cursor:pointer;
     margin-top:15px;
 }
-#buttons{display:none;gap:15px;justify-content:center}
+#buttons{
+    display:none;
+    gap:15px;
+    justify-content:center;
+}
 #yesBtn{animation:pulse 1.4s infinite}
 #noBtn{background:#555;position:absolute}
 
@@ -51,27 +57,17 @@ button{
   50%{transform:scale(1.08)}
   100%{transform:scale(1)}
 }
-
-/* Candle */
-.candle{
-    position:absolute;
-    bottom:0;
-    font-size:40px;
-    animation:flicker 1.5s infinite alternate;
-}
-@keyframes flicker{
-    from{opacity:0.6}
-    to{opacity:1}
-}
 </style>
 </head>
+
 <body>
 
-<div class="card" id="card">
-    <h1 id="dayTitle">💌 Valentine Week ❤️</h1>
-    <img id="photo" src="images/comingsoon.jpg" alt="Valentine Week">
-    <div id="text">💌 Loading Valentine Week… ❤️</div>
+<div class="card">
+    <h1 id="dayTitle"></h1>
+    <img id="photo">
+    <div id="text">💌 Tap Open to read today’s message ❤️</div>
     <button id="openBtn">Open 💌</button>
+
     <div id="buttons">
         <button id="yesBtn">YES ❤️</button>
         <button id="noBtn">NO 🙈</button>
@@ -79,132 +75,86 @@ button{
 </div>
 
 <script>
-// ===== Simple password check =====
-const password = prompt("Enter the secret password to view your Valentine card ❤️");
-if(password !== "sujita2026"){ // <-- change this to your desired password
-    document.body.innerHTML = "<h1>❌ Wrong password!</h1><p>You cannot see the Valentine card.</p>";
-    throw "Access denied"; // stop further JS execution
-}
-
-// ===== Auto date for Feb
+// ===== Date logic
 const now = new Date();
-const valentine = new Date(now.getFullYear(), 1, 14); // Feb 14
-const diffTime = valentine - now;
-const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+const today = (now.getMonth() === 1) ? now.getDate() : 7;
 
-// ===== Data for Valentine Week
+// ===== Valentine Week Data (NO <br>, NO \n)
 const days = {
-7:{title:"🌹 Rose Day",photos:["images/rose.jpg"],letter:["Sujita ❤️","just like a rose brightens up the world with its beauty and fragrance, you brighten up my life with your smile and love. Sending you this rose as a small reminder of how special you are to me."]},
-8:{title:"💍 Propose Day",photos:["images/propose.jpg"],letter:["Sujita 💖","I’ve been wanting to tell you something from the bottom of my heart… You make my days brighter and my life happier. Will you do me the honor of being my Valentine and sharing this journey of love with me?💍"]},
-9:{title:"🍫 Chocolate Day",photos:["images/chocolate.jpg"],letter:["Sweet Sujita 🍫","just like chocolate melts in the mouth and brings sweetness, your presence melts my worries and fills my life with joy. Here’s a sweet thought and a virtual chocolate for the sweetest person in my life."]},
-10:{title:"🧸 Teddy Day",photos:["images/teddy.jpg"],letter:["My Teddy 🧸","this little teddy may be small, but it carries a big hug for you. I want to be like this teddy for you — always by your side, holding you close, comforting you, and keeping you safe. 🤗"]},
-11:{title:"🤞 Promise Day",photos:["images/promise.jpg"],letter:["Sujita 🤞","today I want to make a promise from my heart — to always support you, make you smile, and stand by you no matter what. You are my happiness, my peace, and I never want to let you go. ❤️"]},
-12:{title:"🤗 Hug Day",photos:["images/hug.jpg"],letter:["Warm hug 🤗","sending you the warmest hug across the distance today. Imagine me holding you tight, feeling your presence, and whispering that you mean the world to me. I wish this hug could stay forever.💞"]},
-13:{title:"💋 Kiss Day",photos:["images/kiss.jpg"],letter:["One soft kiss 💋","if I could, I’d send you a thousand kisses to show how much I care. Every kiss would carry my love, my care, and my heart for you. You make my world complete, and I can’t wait to be closer to you. ❤️"]},
-14:{title:"❤️ Valentine Day",photos:["images/valentine1.jpg","images/valentine2.jpg"],letter:[
-"My Dearest Sujita ❤️",
-"Every day with you feels magical.",
-"You are my comfort, happiness, and home.",
-"I want to wake up with you, dream with you, grow old with you.",
-"💍 Will you be my forever Valentine?"
-]}
-};
-
-// ===== Select today
-const today = (now.getMonth() === 1) ? now.getDate() : 14; // auto Feb
-const firstDay = 7; // Rose Day start
-const lastDay = 14; // Valentine Day
-
-let data = null;
-
-// ===== Decide what to show
-if(today < firstDay){
-    // Before Valentine Week starts
-    text.innerHTML = "💌 Valentine Week is coming soon, Sujita ❤️";
-    openBtn.style.display = "none"; // Hide Open button
-    buttons.style.display = "none";
-    photo.src = "images/comingsoon.jpg"; // optional placeholder image
-    title.innerText = "Valentine Week ❤️";
-}else if(today >= firstDay && today <= lastDay){
-    // During Valentine Week
-    data = days[today];
-    title.innerText = data.title;
-    photo.src = data.photos[0];
-    text.innerHTML = `💌 Only ${lastDay - today} day(s) left until Valentine’s Day, Sujita ❤️`;
-    openBtn.style.display = "inline-block";
+7:{title:"🌹 Rose Day",img:"images/rose.jpg",msg:
+"Sujita ❤️ just like a rose brightens up the world with its beauty and fragrance, you brighten up my life with your smile and love. Sending you this rose as a small reminder of how special you are to me."
+},
+8:{title:"💍 Propose Day",img:"images/propose.jpg",msg:
+"Sujita 💖 I’ve been wanting to tell you something from the bottom of my heart. You make my days brighter and my life happier. Will you do me the honor of being my Valentine and sharing this journey of love with me?"
+},
+9:{title:"🍫 Chocolate Day",img:"images/chocolate.jpg",msg:
+"Sweet Sujita 🍫 just like chocolate melts in the mouth and brings sweetness, your presence melts my worries and fills my life with joy. Here’s a sweet thought for the sweetest person in my life."
+},
+10:{title:"🧸 Teddy Day",img:"images/teddy.jpg",msg:
+"My Teddy 🧸 this little teddy may be small, but it carries a big hug for you. I want to be like this teddy for you, always by your side, comforting you and keeping you safe."
+},
+11:{title:"🤞 Promise Day",img:"images/promise.jpg",msg:
+"Sujita 🤞 today I want to make a promise from my heart to always support you, make you smile, and stand by you no matter what. You are my happiness and my peace."
+},
+12:{title:"🤗 Hug Day",img:"images/hug.jpg",msg:
+"Warm hug 🤗 sending you the warmest hug today. Imagine me holding you tight and reminding you how much you mean to me."
+},
+13:{title:"💋 Kiss Day",img:"images/kiss.jpg",msg:
+"One soft kiss 💋 if I could, I would send you a thousand kisses to show how much I care. Every kiss would carry my love and my heart for you."
+},
+14:{title:"❤️ Valentine Day",img:"images/valentine1.jpg",msg:
+"My Dearest Sujita ❤️ every day with you feels magical. You are my comfort, my happiness, and my home. I want to wake up with you, dream with you, and grow old with you. Will you be my forever Valentine?"
 }
+};
 
 // ===== Elements
+const title = document.getElementById("dayTitle");
+const photo = document.getElementById("photo");
+const text = document.getElementById("text");
+const openBtn = document.getElementById("openBtn");
 const buttons = document.getElementById("buttons");
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
 
-// ===== Rose popup short message
-photo.onclick=()=>{
- if(today===7) alert("🌹 This rose carries my heart for you ❤️");
-};
+// ===== Load today
+const data = days[today];
+title.innerText = data.title;
+photo.src = data.img;
 
-// ===== Open button → typing effect
-let i=0,j=0;
-const openBtnEl = document.getElementById("openBtn");
-openBtnEl.onclick = ()=>{
- if(!data) return; // prevent click before Valentine Week
- openBtnEl.style.display="none";
- typeLetter();
- if(today===14) candleLight();
- if(today===14 && data.photos.length>1) photoSlideshow();
-};
+// ===== Typing effect
+let i = 0;
+let message = data.msg;
 
-function typeLetter(){
- if(i < data.letter.length){
-   if(j < data.letter[i].length){
-     text.innerHTML += data.letter[i].charAt(j);
-     j++;
-     setTimeout(typeLetter,40);
-   }else{
-     text.innerHTML += "<br>";
-     i++; j=0;
-     setTimeout(typeLetter,500);
-   }
- }else{
-   buttons.style.display="flex"; // YES/NO now appears every day
- }
+function typeEffect(){
+    if(i < message.length){
+        text.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeEffect, 35);
+    }else{
+        if(today === 14){
+            buttons.style.display = "flex";
+        }
+    }
 }
+
+openBtn.onclick = ()=>{
+    text.innerHTML = "";
+    openBtn.style.display = "none";
+    typeEffect();
+};
 
 // ===== NO button runaway
-let scale=1;
-noBtn.onmouseover=()=>{
- scale+=0.08;
- yesBtn.style.transform=`scale(${scale})`;
- noBtn.style.left=Math.random()*80+"%";
- noBtn.style.top=Math.random()*80+"%";
+let scale = 1;
+noBtn.onmouseover = ()=>{
+    scale += 0.1;
+    yesBtn.style.transform = `scale(${scale})`;
+    noBtn.style.left = Math.random()*80 + "%";
+    noBtn.style.top = Math.random()*80 + "%";
 };
 
-// ===== YES click
-yesBtn.onclick=()=>{
- document.body.innerHTML="<h1>🎉 Congratulations ❤️</h1><p>You are my forever love, Sujita 💍💖</p>";
+// ===== YES button
+yesBtn.onclick = ()=>{
+    document.body.innerHTML = "<h1>🎉 She said YES ❤️</h1><p>Forever with you, Sujita 💍💖</p>";
 };
-
-// ===== Candle animation for Valentine Day
-function candleLight(){
- document.body.style.background="radial-gradient(circle,#ff9aa2,#1a0006)";
- for(let i=0;i<6;i++){
-   let c=document.createElement("div");
-   c.className="candle";
-   c.innerText="🕯️";
-   c.style.left=Math.random()*90+"%";
-   document.body.appendChild(c);
- }
-}
-
-// ===== Valentine photo slideshow
-function photoSlideshow(){
- let idx=0;
- setInterval(()=>{
-   idx=(idx+1)%data.photos.length;
-   photo.src = data.photos[idx];
- },3000);
-}
 </script>
+
 </body>
 </html>
