@@ -16,14 +16,12 @@ FieldSewa is a role-based workforce management system where:
 ✔ Role-based control  
 
 ## Team
-|----------------------------------------------------|
 | Name               | Role / Contribution           | 
 |--------------------|-------------------------------|
 | Riya Maharjhan     | System Design & Backend Logic |
 | Raj Kumar Jha      | Flutter Development           |
 | Dipen Niraula      | UI/UX & Integration           |
 | Mandip Dhungana    | Testing & Documentation       |
-|----------------------------------------------------|
 
 **Technology Used:** Flutter + Firebase  
 **Project Type:** Mobile Application  
@@ -173,7 +171,7 @@ cd FieldSewa
 5️⃣ Run the App
 - flutter run
 
-#Usage Walkthrough
+### Usage Walkthrough
 -Login as Admin
 -Create Manager account
 -Create Employee account
@@ -184,7 +182,7 @@ cd FieldSewa
 -Complete task and submit report
 -Manager views report
 
-#Future Scope
+### Future Scope
 -Admin Analytics Dashboard
 -AI Productivity Insights
 -Route Optimization
@@ -193,28 +191,20 @@ cd FieldSewa
 -Flutter Web Version
 -Development Timeline
 
+###Timeline (Hackathon Log)
 Day 1
-
 System design
-
 Firebase setup
-
 Role-based authentication
 
 Day 2
-
 Task management system
-
 Firestore integration
-
 UI implementation
 
 Day 3
-
 GPS validation
-
 Security rules
-
 Testing & bug fixing
 
 # Credits & License
